@@ -1,8 +1,24 @@
 from flask import Flask
 from flask_smorest import Api
+from flask_cors import CORS
 from blueprints.test import blp as TestBlueprint
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:4200"],
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin',
+                         'http://localhost:4200')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
 
 # --- Flask-Smorest and OpenAPI Configuration ---
 app.config["API_TITLE"] = "Modular API"

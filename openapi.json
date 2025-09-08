@@ -1,0 +1,141 @@
+{
+  "paths": {
+    "/test/pussy": {
+      "post": {
+        "responses": {
+          "422": {
+            "$ref": "#/components/responses/UNPROCESSABLE_ENTITY"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Test"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/DEFAULT_ERROR"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Test"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Test"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Modular API",
+    "version": "v1"
+  },
+  "tags": [
+    {
+      "name": "Test",
+      "description": "Test"
+    }
+  ],
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "Error code"
+          },
+          "status": {
+            "type": "string",
+            "description": "Error name"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "errors": {
+            "type": "object",
+            "description": "Errors",
+            "additionalProperties": {}
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginationMetadata": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "first_page": {
+            "type": "integer"
+          },
+          "last_page": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "previous_page": {
+            "type": "integer"
+          },
+          "next_page": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Test": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "responses": {
+      "UNPROCESSABLE_ENTITY": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "DEFAULT_ERROR": {
+        "description": "Default error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}
