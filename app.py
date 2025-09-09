@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_smorest import Api
 from flask_cors import CORS
-from blueprints.test import blp as TestBlueprint
+from blueprints.sound import blp as SoundBlueprint
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:4200"],
+CORS(app, origins=["http://localhost:4200", "http://127.0.0.1:8080"],
      allow_headers=["Content-Type", "Authorization"],
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 
@@ -30,7 +30,7 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 
-api.register_blueprint(TestBlueprint)
+api.register_blueprint(SoundBlueprint)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
